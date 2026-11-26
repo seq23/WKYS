@@ -12,7 +12,28 @@ export async function onRequest({request,env,params}) {
   const headers={apikey:key,'Content-Type':'application/json'};
   if(token && /^Bearer [A-Za-z0-9._-]+$/.test(token))headers.Authorization=token;
   async function upstream(route,opts={}) {
-    const res=await fetch(base+route,{...opts,headers:{...headers,...opts.headers},redirect:'error',signal:AbortSignal.timeout(12000)});
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    let res;
+    try {
+      res = await fetch(base + route, {
+        ...opts,
+        headers: {...headers, ...opts.headers},
+        redirect: 'manual',
+        signal: controller.signal
+      });
+    } catch (error) {
+      console.error('SPRY upstream transport failure', {
+        stage: route.split('?')[0],
+        type: error?.name || 'Error'
+      });
+      throw new Error('SPRY_TRANSPORT_FAILURE');
+    } finally {
+      clearTimeout(timeout);
+    }
+    if (res.status >= 300 && res.status < 400) {
+      throw new Error('SPRY_UPSTREAM_REDIRECT');
+    }
     const raw=await res.text(); let data; try{data=JSON.parse(raw)}catch{data=null}
     return {res,data};
   }
@@ -31,7 +52,7 @@ export async function onRequest({request,env,params}) {
     if(path==='logout'&&method==='POST'){
       const out=await upstream('/auth/v1/logout?scope=local',{method:'POST'});return out.res.ok?json({ok:true}):json({error:'Session cleared locally; server logout failed.'},502);
     }
-    async function rows(table,query){const result=await upstream('/rest/v1/'+table+'?'+new URLSearchParams(query));if(!result.res.ok||!Array.isArray(result.data))throw new Error('data unavailable');return result.data;}
+    async function rows(table,query){const result=await upstream('/rest/v1/'+table+'?'+new URLSearchParams(query));if(!result.res.ok||!Array.isArray(result.data))throw new Error('SPRY_DATA_'+table+'_'+result.res.status);return result.data;}
     if(path.startsWith('admin/')){
       const roles=await rows('spry_founders',{select:'user_id',user_id:'eq.'+user.data.id});
       if(!roles.length)return json({error:'Founder access required.'},403);
@@ -78,5 +99,19 @@ export async function onRequest({request,env,params}) {
       return json({ok:true},201);
     }
     return json({error:'Not found'},404);
-  }catch(e){return json({error:'Unable to complete the request. Please retry or contact your concierge.'},502);}
+  } catch(e) {
+    const message = String(e?.message || '');
+    const diagnostic = /^SPRY_(TRANSPORT_FAILURE|DATA_[a-z_]+_[0-9]{3})$/.test(message)
+      ? message : 'SPRY_RUNTIME_FAILURE';
+
+    console.error('SPRY gateway error', {
+      diagnostic,
+      type: e?.name || 'Error'
+    });
+
+    return json({
+      error: 'Unable to complete the request. Please retry or contact your concierge.',
+      diagnostic
+    }, 502);
+  }
 }
