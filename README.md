@@ -1,0 +1,2 @@
+# WKYS
+ai consulting
