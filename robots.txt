@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /portal.html
+Disallow: /thanks.html
+Sitemap: https://wekeepyouspry.com/sitemap.xml

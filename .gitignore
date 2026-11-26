@@ -1,0 +1,17 @@
+.env
+.env.*
+!.env.example
+node_modules/
+public/
+.wrangler/
+.dev.vars
+.dev.vars.*
+.DS_Store
+
+.clasp.json
+.clasprc.json
+.dev.vars
+.env
+.env.*
+credentials.json
+node_modules/

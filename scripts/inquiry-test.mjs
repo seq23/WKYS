@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import {onRequest} from '../functions/api/inquiry.js';
+const env={GOOGLE_SCRIPT_URL:'https://script.google.com/macros/s/abc/exec',SPRY_FORM_SECRET:'x'.repeat(40)};
+const data={name:'Test',email:'test@example.com',company:'',goals:'Test',budget:'Exploring options',consent:true,id:'12345678-1234-1234-1234-123456789abc','bot-field':''};
+const send=(d=data,e=env,origin='https://wekeepyouspry.com')=>onRequest({env:e,request:new Request('https://wekeepyouspry.com/api/inquiry',{method:'POST',headers:{Origin:origin,'Content-Type':'application/json'},body:JSON.stringify(d)})});
+let writes=0;globalThis.fetch=async(url,opts)=>{writes++;const body=JSON.parse(opts.body);assert.equal(body.secret,env.SPRY_FORM_SECRET);return Response.json({ok:true,id:body.id});};
+assert.equal((await send()).status,200);assert.equal(writes,1);
+assert.equal((await send({...data,consent:false})).status,400);assert.equal((await send({...data,'bot-field':'spam'})).status,400);assert.equal((await send(data,{})).status,503);assert.equal((await send(data,env,'https://other.com')).status,403);assert.equal(writes,1);
+globalThis.fetch=async()=>Response.json({ok:false});assert.equal((await send()).status,502);
+globalThis.fetch=async()=>{throw Error('network');};assert.equal((await send()).status,502);
+console.log('Inquiry endpoint tests passed (mocked Google, failure and validation paths).');
