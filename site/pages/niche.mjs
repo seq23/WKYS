@@ -122,7 +122,7 @@ export default [
       { q: 'What does it cost for a home-service platform?', a: 'The Assessment is {assessment}, credited to the install. A 30-day install is {install}, and the 90-day engagement starts {engagement}. Voice and software tools are billed to your accounts at their own prices, which we list in the Assessment before you decide.' },
       { q: 'Do technicians have to change how they work?', a: 'As little as possible. Most of the work sits with the office: calls, follow-ups, renewals and invoices. Where a technician step changes, such as notes after a job, we train it on the tools they already carry and keep it short enough to do in the truck.' },
     ],
-    related: ['ai-for-holding-companies', 'ai-for-independent-sponsors', '30-day-ai-implementation', 'should-a-small-business-use-an-ai-receptionist'],
+    related: ['ai-for-holding-companies', 'ai-for-independent-sponsors', '30-day-ai-implementation', 'should-a-small-business-use-an-ai-receptionist', 'what-should-an-ai-install-leave-running-at-a-home-service-company'],
     formHeading: 'Tell us about the platform.',
   },
   {
@@ -214,7 +214,7 @@ export default [
       { q: 'What does it cost a property management firm?', a: 'The Assessment is {assessment}, credited to the install. The 30-day install is {install}, and the 90-day engagement starts {engagement}. Software stays billed to your firm at its own price; we list every tool and its cost in the Assessment before you decide.' },
       { q: 'Will AI make screening or rent decisions?', a: 'Not in anything we build. Screening, approvals and pricing stay with your staff. AI can gather documents, answer questions about the process and draft messages for a person to send. Resident-facing steps are written out for your counsel to review before they go live.' },
     ],
-    related: ['ai-implementation-roadmap', 'is-an-ai-automation-agency-worth-it', '30-day-ai-implementation', 'ai-implementation-partners-for-property-management', 'should-a-small-business-use-an-ai-receptionist'],
+    related: ['ai-implementation-roadmap', 'is-an-ai-automation-agency-worth-it', '30-day-ai-implementation', 'ai-implementation-partners-for-property-management', 'should-a-small-business-use-an-ai-receptionist', 'who-owns-the-ai-systems-after-a-consultant-leaves'],
     formHeading: 'Tell us about your portfolio.',
   },
 ];

@@ -120,7 +120,7 @@ export default [
       { q: 'Are AI leasing assistants safe for fair housing?', a: 'That depends on how each is set up and what it decides. Keep screening, pricing and advertising choices with your staff, and have your counsel review any resident-facing step before it goes live. We do not give legal advice.' },
       { q: 'How were these companies chosen?', a: 'They came up in what search engines returned for property management AI questions on 28 November 2026, and each publishes a page about this work. The list is not complete and is not a ranking.' },
     ],
-    related: ['ai-for-property-management', 'should-a-small-business-use-an-ai-receptionist', 'how-much-do-ai-tools-cost-per-month'],
+    related: ['ai-for-property-management', 'who-owns-the-ai-systems-after-a-consultant-leaves', 'should-a-small-business-use-an-ai-receptionist'],
     formHeading: 'Tell us about your portfolio.',
   },
   {
