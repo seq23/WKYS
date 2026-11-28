@@ -35,6 +35,7 @@ jobs:
     with:
       engine_ref: v1
       stage: ${{ github.event_name == 'pull_request' && 'validate' || inputs.stage || 'auto' }}
+      setup_command: npm run build
       post_build_command: npm run build && node scripts/check-pages.mjs
       open_loops_business: wkys
     secrets:
