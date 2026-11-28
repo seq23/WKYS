@@ -169,5 +169,6 @@
   "cap": {
     "max_live_pages": 15,
     "max_per_day": 3
-  }
+  },
+  "distinct": { "sitemap_files": ["public/sitemap.xml"] }
 }
