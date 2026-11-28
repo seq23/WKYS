@@ -30,7 +30,7 @@ export default [
       { q: 'Is there a monthly fee after the install?', a: 'Not from us. After handover your team runs the systems, and the only running costs are the software subscriptions in your own accounts, which we list in the Assessment. If you want more built later, that is a new, separately scoped project with its own quote.' },
       { q: 'Can a small business afford an AI implementation consultant?', a: 'At these prices, a business with several people doing the same work every day usually can. The Assessment at {assessment} is the cheapest way to find out, because it tells you what an install would change and cost before you commit to the {install} install.' },
     ],
-    related: ['ai-assessment', '30-day-ai-implementation', '90-day-ai-engagement'],
+    related: ['ai-assessment', '30-day-ai-implementation', '90-day-ai-engagement', 'how-much-do-ai-tools-cost-per-month'],
     formHeading: 'Start with the Assessment.',
   },
   {
@@ -67,7 +67,7 @@ export default [
       { q: 'What access do you need for the Assessment?', a: 'View access to the tools you want looked at, in your own accounts, and time with the people who do the work. We never ask for passwords by email or in the form. Access is set up in your accounts and removed when the Assessment ends.' },
       { q: 'Is our information kept private?', a: 'What you share is used only for your Assessment. Your data stays in your own systems; we look at it there rather than copying it out. Please do not send passwords, keys or confidential records through the inquiry form; we arrange access properly once we start.' },
     ],
-    related: ['pricing', '30-day-ai-implementation', 'ai-implementation-roadmap'],
+    related: ['pricing', '30-day-ai-implementation', 'ai-implementation-roadmap', 'what-is-an-ai-readiness-assessment'],
     formHeading: 'Start the Assessment.',
     formIntro: 'Pick the Assessment in the form and tell us about the business. We\'ll reply by email with the written questions and next steps.',
   },
@@ -99,7 +99,7 @@ export default [
       { q: 'What happens if something breaks after handover?', a: 'Your team has the manuals and recordings to fix the common problems, and every system is set up in your accounts with the vendor\'s own support. If you want us back, further work is a separately scoped project with its own quote, not an open-ended support contract.' },
       { q: 'Do we own what you build?', a: 'Yes. Everything is built in accounts in your name, and you keep your accounts, data and commissioned deliverables under the agreement. Third-party software stays under its own licence terms. Nothing we build lives in our accounts, so nothing leaves with us.' },
     ],
-    related: ['ai-assessment', '90-day-ai-engagement', 'pricing'],
+    related: ['ai-assessment', '90-day-ai-engagement', 'pricing', 'how-long-does-an-ai-implementation-take'],
     formHeading: 'Ask about the 30-day install.',
   },
   {
@@ -125,7 +125,7 @@ export default [
       { q: 'Can we start with the 30-day install and extend later?', a: 'Yes. The 90-day engagement starts with the same install, so a business can begin with 30 days and ask for more once it sees the result. Work after that is quoted from the scope you add, in writing, before it starts.' },
       { q: 'Do we own what you build in 90 days?', a: 'Yes. Everything is built in accounts in your name, and you keep control of your accounts, data and commissioned deliverables under the agreement. Third-party software stays under its own licence. The day-90 review confirms every account is yours before we close our access.' },
     ],
-    related: ['30-day-ai-implementation', 'ai-assessment', 'ai-for-holding-companies'],
+    related: ['30-day-ai-implementation', 'ai-assessment', 'ai-for-holding-companies', 'how-long-does-an-ai-implementation-take'],
     formHeading: 'Ask about the 90-day engagement.',
   },
 ];

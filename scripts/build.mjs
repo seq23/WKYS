@@ -80,6 +80,9 @@ ${group('niche')}
 ## Questions
 ${group('question')}
 
+## Comparisons
+${group('comparison')}
+
 ## Site
 - [Home](${SITE.url}/)
 - [Discover your starting point](${abs('/discover')})

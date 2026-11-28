@@ -2,7 +2,9 @@
 // title, description, canonical, social tags or parsing JSON-LD; a duplicate title or description;
 // "SPRY" used alone outside home sections 02-04; sections 02-04 changed at all; a wrong or old
 // price; a page whose inquiry form differs from the home page's; Clarity on a signed-in page;
-// a sitemap URL with no page behind it; an internal link to nothing.
+// a sitemap URL with no page behind it; an internal link to nothing; a landing page missing from
+// llms.txt or the footer; an answer under the H1 outside 30-75 words or a body under 300; a
+// comparison-page fact not sourced on that firm's own site.
 import assert from 'node:assert/strict';
 import { readFile, readdir } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -119,6 +121,51 @@ for (const loc of locs) {
 
 const llms = await read('llms.txt');
 for (const o of OFFERS) check(llms.includes(`${o.name} ${o.display}`), `llms.txt: missing ${o.name} ${o.display}`);
+
+// Every landing page, whatever its kind, is listed in llms.txt and linked from the site footer
+// (a new kind once dropped out of both silently, because each grouped kinds by name).
+const homeFooter = home.match(/<footer>[\s\S]*<\/footer>/)?.[0] || '';
+for (const p of LANDING) {
+  check(llms.includes(`](${SITE.url}/${p.slug})`), `llms.txt: missing /${p.slug}`);
+  check(homeFooter.includes(`<a href="/${p.slug}">`), `footer: missing /${p.slug}`);
+}
+
+// Page shape. The answer under the H1 aims for 40-60 words; it fails only outside 30-75 (a ~25% margin).
+// A page with under 300 words of its own body is thin and belongs as a section of its hub page.
+const words = s => s.replace(/<[^>]+>/g, ' ').replace(/&[a-z#0-9]+;/g, ' ').trim().split(/\s+/).filter(Boolean).length;
+for (const p of LANDING) {
+  const html = await read(p.slug + '.html');
+  const answer = html.match(/<p class="answer">([\s\S]*?)<\/p>/)?.[1] || '';
+  const n = words(answer);
+  check(n >= 30 && n <= 75, `${p.slug}: answer under the H1 is ${n} words (aim 40-60, fails outside 30-75)`);
+  const body = (html.match(/<article class="lp-body">([\s\S]*?)<\/article>/)?.[1] || '').replace(/<section class="lp-offers"[\s\S]*?<\/section>/, '').replace(/<section class="related"[\s\S]*?<\/section>/, '').replace(/<p class="byline">[\s\S]*?<\/p>/, '');
+  check(words(body) >= 300, `${p.slug}: only ${words(body)} words of its own body (under 300 is thin; fold it into its hub page)`);
+}
+
+// Comparison pages: every fact about a firm is sourced on that firm's own site, shown with its link;
+// no competitor's name and no "best"/"top" in the slug, title, H1 or description; WKYS is listed,
+// labelled, and says in the first 100 words that it wrote the page; at least 3 other firms.
+const bare = u => { try { return new URL(u).hostname.replace(/^www\./, ''); } catch { return null; } };
+for (const p of LANDING.filter(p => p.kind === 'comparison')) {
+  const html = await read(p.slug + '.html');
+  const others = (p.firms || []).filter(f => !f.us);
+  check(others.length >= 3, `${p.slug}: ${others.length} firms besides us; under 3 sourceable, skip the page`);
+  check((p.firms || []).filter(f => f.us).length === 1, `${p.slug}: We Keep You Spry must be listed once, marked us`);
+  for (const f of p.firms || []) {
+    check(bare(f.url), `${p.slug}: ${f.name} has no valid url`);
+    check(/^\d{4}-\d{2}-\d{2}$/.test(f.checked || ''), `${p.slug}: ${f.name} has no checked date`);
+    check(f.facts?.length, `${p.slug}: ${f.name} has no facts`);
+    for (const x of f.facts || []) {
+      check(bare(x.source) && bare(x.source) === bare(f.url), `${p.slug}: fact about ${f.name} is sourced on ${bare(x.source)}, not its own site ${bare(f.url)}: "${x.text}"`);
+      check(html.includes(`href="${x.source}"`), `${p.slug}: source link for ${f.name} not on the page`);
+    }
+  }
+  const named = [p.slug, p.title, p.h1, p.description].join(' | ');
+  for (const f of others) check(!named.toLowerCase().includes(f.name.toLowerCase().replace(/\.ai$/, '')), `${p.slug}: competitor ${f.name} named in the slug, title, H1 or description`);
+  check(!/\b(best|top)\b/i.test(named), `${p.slug}: "best" or "top" in the slug, title, H1 or description`);
+  const first100 = (html.match(/<main[^>]*>([\s\S]*)<\/main>/)?.[1] || '').replace(/<[^>]+>/g, ' ').trim().split(/\s+/).slice(0, 100).join(' ');
+  check(first100.includes('written by We Keep You Spry'), `${p.slug}: the first 100 words must say the page is written by We Keep You Spry`);
+}
 const robots = await read('robots.txt');
 for (const p of ['/founder', '/client', '/api/']) check(robots.includes(`Disallow: ${p}`), `robots.txt: does not disallow ${p}`);
 for (const p of ['/portal', '/thanks']) check(!robots.includes(`Disallow: ${p}`), `robots.txt: disallows ${p}, so its noindex is never seen`);

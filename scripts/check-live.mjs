@@ -11,7 +11,7 @@ const get = (url, init = {}) => fetch(url, { redirect: 'manual', ...init, signal
 
 const sitemap = await (await get(base + '/sitemap.xml')).text();
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
-check(locs.length >= 18, `sitemap lists ${locs.length} URLs; expected at least 18`);
+check(locs.length >= 32, `sitemap lists ${locs.length} URLs; expected at least 32`);
 for (const loc of locs) {
   const url = base + new URL(loc).pathname;
   const res = await get(url);

@@ -33,7 +33,7 @@ export default [
       { q: 'Will you run the AI for us after the install?', a: 'No. We build, teach and hand over, and your teams run the systems after day 30 or day 90. If you want more built later, that is a separately scoped project. There is no retainer and no ongoing fee from us once a system is handed over.' },
       { q: 'Do you also work with search funds and independent sponsors?', a: 'Yes. A search fund usually starts with the one company it has just bought, and an independent sponsor often installs during the first months after close. The pages on [AI for search funds](/ai-for-search-funds) and [AI for independent sponsors](/ai-for-independent-sponsors) explain how the work differs.' },
     ],
-    related: ['ai-for-search-funds', 'ai-for-independent-sponsors', 'ai-for-home-service-companies'],
+    related: ['ai-for-search-funds', 'ai-for-independent-sponsors', 'ai-for-home-service-companies', 'ai-implementation-partners-for-holding-companies'],
     formHeading: 'Start with the portfolio Assessment.',
   },
   {
@@ -68,7 +68,7 @@ export default [
       { q: 'Can the installed systems handle the departing owner\'s knowledge?', a: 'They can hold it in a form your team can search: written procedures, answers to common questions and the files that explain them. The owner\'s time is the limit, so we plan those conversations early in the transition period while the owner is still available to you.' },
       { q: 'What does it cost a search fund?', a: 'The Assessment is {assessment}, credited to the install. The 30-day install is {install}, and the 90-day engagement starts {engagement}. Software is billed to the company\'s own accounts at its own price, and every cost is agreed in writing before work begins.' },
     ],
-    related: ['ai-for-holding-companies', 'ai-for-independent-sponsors', 'ai-implementation-roadmap'],
+    related: ['ai-for-holding-companies', 'ai-for-independent-sponsors', 'ai-implementation-roadmap', 'ai-implementation-partners-for-holding-companies'],
     formHeading: 'Tell us about the company you bought.',
   },
   {
@@ -95,7 +95,7 @@ export default [
       { q: 'What if the deal does not close?', a: 'Then nothing is built. We only start the install once you have the company\'s accounts. An Assessment done before close covers the mapping and the plan; whether its fee carries over to a different company is agreed in writing at the start.' },
       { q: 'Do you work with the management team or only the sponsor?', a: 'With both. The sponsor sets the scope; the management team and the people who do the work each day are who we build for and train. Handover is to the management team, because they run the systems after we leave.' },
     ],
-    related: ['ai-for-holding-companies', 'ai-for-search-funds', '30-day-ai-implementation'],
+    related: ['ai-for-holding-companies', 'ai-for-search-funds', '30-day-ai-implementation', 'ai-implementation-partners-for-holding-companies'],
     formHeading: 'Tell us about the deal.',
   },
   {
@@ -122,7 +122,7 @@ export default [
       { q: 'What does it cost for a home-service platform?', a: 'The Assessment is {assessment}, credited to the install. A 30-day install is {install}, and the 90-day engagement starts {engagement}. Voice and software tools are billed to your accounts at their own prices, which we list in the Assessment before you decide.' },
       { q: 'Do technicians have to change how they work?', a: 'As little as possible. Most of the work sits with the office: calls, follow-ups, renewals and invoices. Where a technician step changes, such as notes after a job, we train it on the tools they already carry and keep it short enough to do in the truck.' },
     ],
-    related: ['ai-for-holding-companies', 'ai-for-independent-sponsors', '30-day-ai-implementation'],
+    related: ['ai-for-holding-companies', 'ai-for-independent-sponsors', '30-day-ai-implementation', 'should-a-small-business-use-an-ai-receptionist', 'what-should-an-ai-install-leave-running-at-a-home-service-company'],
     formHeading: 'Tell us about the platform.',
   },
   {
@@ -155,7 +155,7 @@ export default [
       { q: 'Does the install work with Applied, Vertafore or EZLynx?', a: 'We work with the system you already have and start with its own AI features where they fit. Where it cannot reach a carrier portal or a spreadsheet, we connect what we can and write down what still needs a person. The Assessment tells you which before you pay for the install.' },
       { q: 'How big does an agency need to be?', a: 'There is no minimum, but the install pays back fastest where several people do the same service work every day. An agency with a full service desk and a renewal book usually has enough repeated work to fill a 30-day install. A two-person office may need only the Assessment.' },
     ],
-    related: ['ai-for-bail-bond-agencies', 'ai-assessment', 'what-does-an-ai-implementation-consultant-do'],
+    related: ['ai-for-bail-bond-agencies', 'ai-assessment', 'what-does-an-ai-implementation-consultant-do', 'is-it-safe-to-put-client-data-into-ai-tools'],
     formHeading: 'Tell us about the agency.',
   },
   {
@@ -187,7 +187,7 @@ export default [
       { q: 'What does it cost for a bail bond agency?', a: 'The Assessment is {assessment}, credited to the install. The 30-day install is {install}, and the 90-day engagement starts {engagement}. Phone, texting and bail software are billed to your agency at their own prices, which we list in the Assessment before you decide.' },
       { q: 'Does it work with our current bail software?', a: 'We start from the software you already use and connect to it where it allows. Where it has no way in, we set up the AI work beside it and write down what still has to be entered by hand. The Assessment tells you which before you pay for the install.' },
     ],
-    related: ['ai-for-insurance-agencies', 'ai-assessment', 'is-an-ai-automation-agency-worth-it'],
+    related: ['ai-for-insurance-agencies', 'ai-assessment', 'is-an-ai-automation-agency-worth-it', 'ai-implementation-partners-for-bail-bond-agencies'],
     formHeading: 'Tell us about the agency.',
   },
   {
@@ -214,7 +214,7 @@ export default [
       { q: 'What does it cost a property management firm?', a: 'The Assessment is {assessment}, credited to the install. The 30-day install is {install}, and the 90-day engagement starts {engagement}. Software stays billed to your firm at its own price; we list every tool and its cost in the Assessment before you decide.' },
       { q: 'Will AI make screening or rent decisions?', a: 'Not in anything we build. Screening, approvals and pricing stay with your staff. AI can gather documents, answer questions about the process and draft messages for a person to send. Resident-facing steps are written out for your counsel to review before they go live.' },
     ],
-    related: ['ai-implementation-roadmap', 'is-an-ai-automation-agency-worth-it', '30-day-ai-implementation'],
+    related: ['ai-implementation-roadmap', 'is-an-ai-automation-agency-worth-it', '30-day-ai-implementation', 'ai-implementation-partners-for-property-management', 'should-a-small-business-use-an-ai-receptionist', 'who-owns-the-ai-systems-after-a-consultant-leaves'],
     formHeading: 'Tell us about your portfolio.',
   },
 ];

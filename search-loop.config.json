@@ -145,32 +145,7 @@
     "why": "28 Nov 2026 brief (wkys-search): no implied track record (no clients yet), no compliance or results promises, no call asks; the Assessment through the form is the one next step."
   },
   "seeds_from": "Starter searches chosen 28 Nov 2026 for the buyer questions the landing pages do not already answer; the nightly chatgpt-searches job adds ChatGPT's own searches here by PR",
-  "seeds": [
-    {
-      "query": "how to get employees to actually use ai tools at work",
-      "wants": [
-        "training",
-        "manuals",
-        "adoption"
-      ]
-    },
-    {
-      "query": "who owns the ai automations a consultant builds for my business",
-      "wants": [
-        "ownership",
-        "accounts in your name",
-        "handover"
-      ]
-    },
-    {
-      "query": "ai readiness checklist for a small business owner",
-      "wants": [
-        "checklist",
-        "tools",
-        "data"
-      ]
-    }
-  ],
+  "seeds": [],
   "product": {
     "checked_at": "2026-11-28 from site/data.mjs and the home page",
     "facts": [

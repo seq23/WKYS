@@ -54,7 +54,16 @@ export const inquiry = ({ eyebrow = '09 / PRIVATE INQUIRIES', heading = 'Your ne
 
 const longDate = d => new Date(d + 'T12:00:00Z').toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
 
-function block(s) {
+// A comparison page's firm list: each company described only by facts from its own site, each
+// fact linked to the page it came from (scripts/check-pages.mjs fails a fact sourced elsewhere).
+const host = u => new URL(u).hostname.replace(/^www\./, '');
+function firms(page) {
+  const items = page.firms.map(f => `<li><h3>${esc(f.name)}${f.us ? ' <span class="us">(us, the authors of this page)</span>' : ''}</h3><p class="firm-meta">${esc(f.kind)} · <a href="${esc(f.url)}" rel="noopener">${esc(host(f.url))}</a> · read <time datetime="${f.checked}">${longDate(f.checked)}</time></p><ul>${f.facts.map(x => `<li>${text(x.text)} (<a href="${esc(x.source)}" rel="noopener">source</a>)</li>`).join('')}</ul></li>`).join('');
+  return `<section class="firms"><h2>${esc(page.firmsHeading)}</h2><p>${text(page.firmsIntro)}</p><ul class="firm-list">${items}</ul></section>`;
+}
+
+function block(s, page) {
+  if (s.firms) return firms(page);
   let out = `<h2>${esc(s.h2)}</h2>` + (s.p || []).map(p => `<p>${text(p)}</p>`).join('');
   if (s.list) out += `<${s.list.type || 'ul'}>${s.list.items.map(i => `<li>${text(i)}</li>`).join('')}</${s.list.type || 'ul'}>`;
   if (s.table) out += `<div class="table-wrap"><table><thead><tr>${s.table.head.map(h => `<th scope="col">${esc(h)}</th>`).join('')}</tr></thead><tbody>${s.table.rows.map(r => `<tr>${r.map((c, i) => i === 0 ? `<th scope="row">${text(c)}</th>` : `<td data-label="${esc(s.table.head[i])}">${text(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
@@ -65,7 +74,7 @@ function block(s) {
 export function landing(page, all) {
   const related = (page.related || []).map(slug => all.find(p => p.slug === slug)).filter(Boolean);
   const offer = page.offer ? OFFERS.find(o => o.id === page.offer) : OFFERS[0];
-  const body = `<main id="main"><section class="lp-hero dark"><div class="lp-hero-in"><p class="eyebrow">${esc(page.eyebrow)}</p><h1>${esc(page.h1)}</h1><p class="answer">${text(page.answer)}</p><a class="button lime" href="#inquire" data-offer="${esc(offer.formValue)}">${esc(offer.cta)} ↗</a><p class="micro">${OFFERS.map(o => `${esc(o.name)} ${esc(o.display)}`).join(' · ')}</p></div></section><article class="lp-body">${page.sections.map(block).join('')}${page.slug === 'pricing' ? '' : offersTable()}<section id="faq"><h2>Frequently asked questions</h2>${page.faq.map(f => `<details><summary>${esc(f.q)}</summary><p>${text(f.a)}</p></details>`).join('')}</section>${related.length ? `<section class="related"><h2>Related pages</h2><ul>${related.map(r => `<li><a href="/${r.slug}">${esc(r.h1)}</a></li>`).join('')}</ul></section>` : ''}<p class="byline">By We Keep You Spry · Published <time datetime="${page.published}">${longDate(page.published)}</time> · Updated <time datetime="${page.updated}">${longDate(page.updated)}</time></p></article>${inquiry({ eyebrow: 'START HERE', heading: esc(page.formHeading || 'Start with the Assessment.'), intro: page.formIntro || 'Tell us what you would like to build. We\'ll reply by email about whether the Assessment is the right first step.' })}</main>`;
+  const body = `<main id="main"><section class="lp-hero dark"><div class="lp-hero-in"><p class="eyebrow">${esc(page.eyebrow)}</p><h1>${esc(page.h1)}</h1><p class="answer">${text(page.answer)}</p><a class="button lime" href="#inquire" data-offer="${esc(offer.formValue)}">${esc(offer.cta)} ↗</a><p class="micro">${OFFERS.map(o => `${esc(o.name)} ${esc(o.display)}`).join(' · ')}</p></div></section><article class="lp-body">${page.sections.map(s => block(s, page)).join('')}${page.slug === 'pricing' ? '' : offersTable()}<section id="faq"><h2>Frequently asked questions</h2>${page.faq.map(f => `<details><summary>${esc(f.q)}</summary><p>${text(f.a)}</p></details>`).join('')}</section>${related.length ? `<section class="related"><h2>Related pages</h2><ul>${related.map(r => `<li><a href="/${r.slug}">${esc(r.h1)}</a></li>`).join('')}</ul></section>` : ''}<p class="byline">By We Keep You Spry · Published <time datetime="${page.published}">${longDate(page.published)}</time> · Updated <time datetime="${page.updated}">${longDate(page.updated)}</time></p></article>${inquiry({ eyebrow: 'START HERE', heading: esc(page.formHeading || 'Start with the Assessment.'), intro: page.formIntro || 'Tell us what you would like to build. We\'ll reply by email about whether the Assessment is the right first step.' })}</main>`;
   return { body, faq: page.faq.map(f => ({ q: f.q, a: plain(f.a) })) };
 }
 
