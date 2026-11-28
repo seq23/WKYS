@@ -82,4 +82,5 @@ export const FOOTER_GROUPS = [
   { name: 'Who it is for', kind: 'niche' },
   { name: 'Offers', kind: 'offer' },
   { name: 'Questions', kind: 'question' },
+  { name: 'Compare', kind: 'comparison' },
 ];

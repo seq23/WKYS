@@ -2,8 +2,9 @@
 import niche from './niche.mjs';
 import offer from './offer.mjs';
 import question from './question.mjs';
+import compare from './compare.mjs';
 
-export const LANDING = [...niche, ...offer, ...question];
+export const LANDING = [...niche, ...offer, ...question, ...compare];
 
 const seen = new Set();
 for (const p of LANDING) {

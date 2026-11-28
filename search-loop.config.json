@@ -161,14 +161,6 @@
         "accounts in your name",
         "handover"
       ]
-    },
-    {
-      "query": "ai readiness checklist for a small business owner",
-      "wants": [
-        "checklist",
-        "tools",
-        "data"
-      ]
     }
   ],
   "product": {
