@@ -126,6 +126,11 @@ const headers = await read('_headers');
 for (const p of ['/founder', '/client', '/portal']) check(new RegExp(`^${p}\\n  ! Content-Security-Policy\\n  Content-Security-Policy: default-src 'self'; script-src 'self';`, 'm').test(headers), `_headers: ${p} lost its strict CSP`);
 check(/script-src 'self' https:\/\/static\.cloudflareinsights\.com https:\/\/www\.clarity\.ms/.test(headers), '_headers: site CSP does not allow Cloudflare Web Analytics and Clarity');
 check(existsSync(`${dir}/BingSiteAuth.xml`), 'BingSiteAuth.xml not shipped');
+// The discover quiz prints its result from site.js: names and prices come from the page, never the script.
+const js = await read('assets/site.js');
+check(!/\$\d/.test(js), 'assets/site.js: a hard-coded price (the quiz must read prices from discover.html)');
+check(!/\bSPRY\b/.test(js), 'assets/site.js: "SPRY" used alone');
+for (const id of ['install', 'engagement', 'assessment']) check((await read('discover.html')).includes(`data-${id}="`), `discover.html: quiz price data-${id} missing`);
 
 if (fail.length) { console.error(`check-pages: ${fail.length} problem(s)\n- ` + fail.join('\n- ')); process.exit(1); }
 console.log(`check-pages: ${all.length} pages, ${locs.length} sitemap URLs, ${formPages.length} identical forms, frozen sections 02-04 unchanged: pass`);
