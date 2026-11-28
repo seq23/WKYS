@@ -9,6 +9,15 @@ const fail = [];
 const check = (ok, msg) => { if (!ok) fail.push(msg); };
 const get = (url, init = {}) => fetch(url, { redirect: 'manual', ...init, signal: AbortSignal.timeout(20000) });
 
+// A new branch preview can answer 404 for its first seconds after `pages deploy` returns (seen on
+// #2 and #3, 28 Nov 2026). Wait, up to 120 s, until the copy is serving — its sitemap answers 200
+// and the inquiry function answers GET with 405 — before judging it. Never longer: a copy that is
+// still not serving after that is judged as it is, so a broken deploy still fails.
+const serving = async () => {
+  try { return (await get(base + '/sitemap.xml')).status === 200 && (await get(base + '/api/inquiry')).status === 405; } catch { return false; }
+};
+for (let waited = 0; waited < 120 && !(await serving()); waited += 5) await new Promise(r => setTimeout(r, 5000));
+
 const sitemap = await (await get(base + '/sitemap.xml')).text();
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1]);
 check(locs.length >= 32, `sitemap lists ${locs.length} URLs; expected at least 32`);
