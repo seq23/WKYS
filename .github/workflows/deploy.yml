@@ -24,6 +24,11 @@ on:
 permissions:
   contents: read
 
+# bash -eo pipefail: a failing command before `| tee` fails the step (a green read-back hid a red check-live on PR #1).
+defaults:
+  run:
+    shell: bash
+
 jobs:
   preview:
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
@@ -49,8 +54,10 @@ jobs:
           if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
             echo "NAMED STOP [SECRET_MISSING] CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID is not set"; exit 1
           fi
-          # A preview is a public copy of the site: keep it out of search engines.
-          printf '\n/*\n  X-Robots-Tag: noindex\n' >> public/_headers
+          # A preview is a public copy of the site: keep it out of search engines. The header goes
+          # INSIDE the existing /* block: a second /* block replaces the first on Pages and drops the CSP.
+          node -e "const fs=require('fs'),f='public/_headers',s=fs.readFileSync(f,'utf8');if(!s.startsWith('/*\\n'))process.exit(1);fs.writeFileSync(f,s.replace('/*\\n','/*\\n  X-Robots-Tag: noindex\\n'))"
+          [ "$(grep -c '^/\*$' public/_headers)" = 1 ] && grep -q '^  Content-Security-Policy:' public/_headers
           npx --yes wrangler@4.131.1 pages deploy public --project-name wkys --branch "$BRANCH" \
             --commit-hash "$SHA" --commit-message "preview $BRANCH" --commit-dirty=true | tee "$RUNNER_TEMP/deploy.log"
           url="$(grep -oE 'https://[a-z0-9.-]+\.wkys-ejt\.pages\.dev' "$RUNNER_TEMP/deploy.log" | tail -1)"
