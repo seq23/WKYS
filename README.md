@@ -1,13 +1,20 @@
-# SPRY / WKYS
+# We Keep You Spry (WKYS)
 The world moves fast. We keep you Spry.
 
 Repository target: `seq23/WKYS`. Domain: `wekeepyouspry.com` (owner reports purchased). This repo is a dependency-free static public site, its Pages Functions and SQL. No credentials are included.
 
 ## Deploy
-Use Cloudflare Pages (Git integration) and Google Apps Script. Follow [the complete configuration guide](docs/CLOUDFLARE-GOOGLE.md). Upload the archive contents to the repo root; remove obsolete Netlify configuration from the existing repo. Build command `npm run build`; publish `public`. Complete Google authorization, configure Cloudflare secrets, and verify an actual inquiry before launch. Provision business email separately.
+The Pages project `wkys` is Direct Upload, so a push alone deploys nothing. `.github/workflows/deploy.yml` builds `public/` and uploads it with `functions/`: a pull request gets a branch preview (`https://<branch>.wkys-ejt.pages.dev`, read back by `scripts/check-live.mjs`), and main deploys production only after the build and every test pass. A finished Search Loop run on main also deploys. Rollback: re-promote an earlier deployment in Cloudflare Pages. Inquiries still go through `/api/inquiry` to the Google Apps Script ([configuration guide](docs/CLOUDFLARE-GOOGLE.md)).
 
 ## Local
-Node 20+; no npm install needed. `npm run build && npm test`. Serve `public` via `python -m http.server 8000 --directory public`.
+Node 20+; no npm install needed. `npm run build && npm test`. Serve with `npx wrangler pages dev public` (clean URLs, `_headers` and functions as Pages serves them).
+
+## Where things live
+- `site/data.mjs`: the name, the three offers and their prices, and each hand-written page's title and description. A price changes only here.
+- `site/pages/*.mjs`: the 15 landing pages (niche, offer and question pages), rendered by `site/render.mjs`.
+- Root `*.html`: hand-written pages; `<!--@head-->`, `<!--@header-->`, `<!--@offers-->`, `<!--@inquiry-->`, `<!--@footer-->` and `<!--@price:…-->` are filled at build. Home sections 02–04 are frozen (pinned by `scripts/check-pages.mjs`).
+- `questions/`: pages written by the search loop (`search-loop.config.json`, `.github/workflows/search-loop.yml`).
+- `assets/clarity.js`: the Microsoft Clarity loader and its project id (home and landing pages only).
 
 ## What's implemented
 Responsive brand site, FAQ, offer, Cloudflare Pages inquiry endpoint and Google Apps Script writer, thank-you page, local interactive assessment, illustrative portal with expandable guides, privacy draft, SEO files, build and static tests. Original CSS/SVG illustrations, no remote asset dependency. Internal docs excluded from publish output.

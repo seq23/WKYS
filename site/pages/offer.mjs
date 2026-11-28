@@ -1,0 +1,131 @@
+// Offer pages: what each of the three fixed prices buys. Prices come from site/data.mjs.
+const D = '2026-11-28';
+
+export default [
+  {
+    slug: 'pricing', kind: 'offer', nav: 'Pricing', published: D, updated: D,
+    title: 'AI Implementation Consultant Cost and Pricing | We Keep You Spry',
+    description: 'What an AI implementation consultant costs at We Keep You Spry: Assessment $1,500 (credited), 30-day install $10,000, 90-day engagement from $25,000.',
+    eyebrow: 'PRICING',
+    h1: 'How much does an AI implementation consultant cost?',
+    answer: 'An AI implementation consultant at We Keep You Spry costs {assessment} for the Assessment, which is credited to the install, {install} for a 30-day install, and {engagement} for a 90-day engagement. The prices are fixed and published. Software you choose is billed to your own accounts at its own price.',
+    sections: [
+      { h2: 'What does each price include?', p: ['Each step includes the one before it, so nobody pays twice for the same work.'], table: { head: ['Offer', 'Price', 'Includes'], rows: [
+        ['[Assessment](/ai-assessment)', '{assessment}', 'A review of your workflows, tools, accounts and data; a written roadmap; a fixed quote for the install. Credited to the install if you go ahead.'],
+        ['[30-day install](/30-day-ai-implementation)', '{install}', 'The agreed systems set up in accounts you own, tested, documented, and handed over with training.'],
+        ['[90-day engagement](/90-day-ai-engagement)', '{engagement}', 'The 30-day install, then two more months of scoped builds, tests and practice until your team runs everything alone.'],
+      ] } },
+      { h2: 'How do these prices compare with the market?', p: ['They sit at the low end of published ranges for a first project. One small-business guide puts initial AI projects at $10,000 to $50,000 (a vendor\'s own figures: [Bushe](https://bushe.co/answers/how-much-does-ai-consulting-cost-for-a-small-business/)). Several private-equity boutiques we read in November 2026 published no prices at all ([RTS Labs](https://rtslabs.com/ai-consulting-for-private-equity), [Middle Market Growth](https://middlemarketgrowth.org/conversations-ai-operating-partners-value-creation/)).'] },
+      { h2: 'What sets the price of the 90-day engagement?', p: ['The scope fixed in the Assessment: how many systems, how many teams and how many companies are in it. The 90-day engagement starts {engagement}; the exact figure is written into your quote before any work starts, and it does not change unless you change the scope.'] },
+      { h2: 'What is not included?', p: ['Anything that would make you depend on us, and anything we cannot promise.'], list: { items: [
+        'Software and usage fees: billed to your accounts at the vendor\'s price, listed in the Assessment.',
+        'Running your business, sales or marketing for you.',
+        'Sales, audience growth or revenue guarantees.',
+        'Legal advice: where rules apply, we write the steps out for your own counsel to review.',
+      ] } },
+    ],
+    faq: [
+      { q: 'Is the Assessment fee credited to the install?', a: 'Yes. If you go ahead with the 30-day install or the 90-day engagement, the {assessment} Assessment fee comes off the price. If you do not, you keep the written roadmap and can use it with your own team or anyone else. Either way the Assessment ends with a fixed quote.' },
+      { q: 'Why publish fixed prices?', a: 'So you can decide before anyone asks for your time. A fixed price also keeps both sides honest about scope: the Assessment sets what is in the install, the quote is written down, and the price only moves if you add something. There are no hourly bills and no surprise invoices.' },
+      { q: 'Is there a monthly fee after the install?', a: 'Not from us. After handover your team runs the systems, and the only running costs are the software subscriptions in your own accounts, which we list in the Assessment. If you want more built later, that is a new, separately scoped project with its own quote.' },
+      { q: 'Can a small business afford an AI implementation consultant?', a: 'At these prices, a business with several people doing the same work every day usually can. The Assessment at {assessment} is the cheapest way to find out, because it tells you what an install would change and cost before you commit to the {install} install.' },
+    ],
+    related: ['ai-assessment', '30-day-ai-implementation', '90-day-ai-engagement'],
+    formHeading: 'Start with the Assessment.',
+  },
+  {
+    slug: 'ai-assessment', kind: 'offer', offer: 'assessment', nav: 'Assessment', published: D, updated: D,
+    title: 'AI Readiness Assessment for Your Business | We Keep You Spry',
+    description: 'A fixed-price $1,500 AI Assessment: we map your workflows, tools and data and hand you a written roadmap and quote, credited to the install.',
+    eyebrow: 'THE ASSESSMENT · $1,500',
+    h1: 'The AI Assessment: where to start, and what it costs',
+    answer: 'The We Keep You Spry AI Assessment is a fixed-price {assessment} review of how your business runs, which tools you already pay for and where your data lives. It ends in a written roadmap and a fixed quote for the install. If you go ahead with the install, the fee is credited to it.',
+    sections: [
+      { h2: 'What happens in the Assessment?', p: ['Five steps, all in writing, starting from the form on this page.'], list: { type: 'ol', items: [
+        'You send the inquiry form, picking the Assessment.',
+        'We reply by email with a short list of written questions about your business, your team and your tools.',
+        'You give us view access to the tools you want looked at, in your own accounts.',
+        'We talk with you and the people who do the work each day, and map where the hours go.',
+        'You get the written roadmap and a fixed quote for the install.',
+      ] } },
+      { h2: 'What do you get at the end?', p: ['A document you can act on with or without us.'], list: { items: [
+        'The workflows worth automating first, ranked by the hours they cost you.',
+        'The tools you already pay for that can do more, and the gaps that need something new, with prices.',
+        'Where your data lives and who should own each account.',
+        'A fixed quote and a 30-day plan for the install.',
+      ] } },
+      { h2: 'Who is the Assessment for?', p: ['Owners and operators who know AI should be saving their team time and want a straight answer on where, before spending {install}.'], table: { head: ['Good fit', 'Probably not yet'], rows: [
+        ['Several people doing the same work every day', 'A one-person business with no repeated work'],
+        ['Tools already paid for and half used', 'No software in place at all'],
+        ['An owner who will make the call on scope', 'Nobody with authority to decide'],
+      ] } },
+      { h2: 'Aren\'t there free AI assessments?', p: ['Yes, and some are good. On Searchfunder, operators offer free AI assessments to other searchers ([Searchfunder](https://searchfunder.com/post/eta-ers-using-ai-in-their-acquired-business)), and the Big "I" runs free Agency AI Labs for insurance agencies ([Big "I"](https://www.independentagent.com/wp-content/uploads/2026/05/Agency-AI-Lab-flyer.pdf)). Ours costs {assessment} because it ends in a fixed quote for a real install, and the fee comes back to you if you go ahead.'] },
+    ],
+    faq: [
+      { q: 'How much does the AI Assessment cost?', a: 'The Assessment is a fixed {assessment}. If you go ahead with the 30-day install at {install} or the 90-day engagement ({engagement}), the Assessment fee is credited to it. If you do not, you keep the written roadmap and can use it however you like.' },
+      { q: 'Do we have to buy the install afterwards?', a: 'No. The roadmap is yours either way. Some owners use it with their own staff, some take it to another firm, and some go ahead with the install. The quote stays open for the period written on it, so you can decide without being chased.' },
+      { q: 'What access do you need for the Assessment?', a: 'View access to the tools you want looked at, in your own accounts, and time with the people who do the work. We never ask for passwords by email or in the form. Access is set up in your accounts and removed when the Assessment ends.' },
+      { q: 'Is our information kept private?', a: 'What you share is used only for your Assessment. Your data stays in your own systems; we look at it there rather than copying it out. Please do not send passwords, keys or confidential records through the inquiry form; we arrange access properly once we start.' },
+    ],
+    related: ['pricing', '30-day-ai-implementation', 'ai-implementation-roadmap'],
+    formHeading: 'Start the Assessment.',
+    formIntro: 'Pick the Assessment in the form and tell us about the business. We\'ll reply by email with the written questions and next steps.',
+  },
+  {
+    slug: '30-day-ai-implementation', kind: 'offer', offer: 'install', nav: '30-day install', published: D, updated: D,
+    title: '30-Day AI Implementation for Your Business | We Keep You Spry',
+    description: 'A 30-day AI implementation for $10,000: agreed systems set up in accounts you own, tested, documented and handed over with training.',
+    eyebrow: 'THE 30-DAY INSTALL · $10,000',
+    h1: 'A 30-day AI implementation, installed and handed over',
+    answer: 'A 30-day AI implementation from We Keep You Spry is a fixed-price {install} install of the systems agreed in the Assessment: tools set up in accounts you own, connected to the software you already use, tested, documented and handed to your team with training. On day 30 you run it, not us.',
+    sections: [
+      { h2: 'What happens in the 30 days?', p: ['A plan agreed in the Assessment, worked through in four stages.'], table: { head: ['When', 'What happens'], rows: [
+        ['Week 1', 'Confirm the scope, set up access in your accounts, install the foundational tools'],
+        ['Weeks 2–3', 'Build and connect the agreed assistants and automations, and test them on real work'],
+        ['Week 4', 'Train your team, record walkthroughs, hand over every account and manual'],
+        ['Day 30', 'Handover review: your team runs each system while we watch, and we close our access'],
+      ] } },
+      { h2: 'What do you need to give us?', p: ['Access, an owner and a little of your team\'s time.'], list: { items: [
+        'Accounts in your company\'s name for every tool in the scope.',
+        'One person who owns the install on your side and can approve changes.',
+        'Time each week with the people who will use the systems.',
+      ] } },
+      { h2: 'What does day 30 look like?', p: ['Your team runs the systems without us. Every account is in your name, the manuals and recordings are in your files, and our access is closed.'] },
+      { h2: 'What if 30 days is not enough?', p: ['Then the scope is too big for one install, and the Assessment says so before you pay. Larger work goes into the [90-day engagement](/90-day-ai-engagement), which starts with the same 30-day install and adds two months.'] },
+    ],
+    faq: [
+      { q: 'How much does the 30-day install cost?', a: 'The 30-day install is {install}, fixed, and the {assessment} Assessment fee is credited to it. Software and usage fees are billed to your own accounts at the vendor\'s price; we list each one in the Assessment so the full running cost is known before you decide.' },
+      { q: 'Can we skip the Assessment and go straight to the install?', a: 'The Assessment is how the install gets its scope and its fixed price, so it comes first. Its fee is credited to the install, so going through it costs you nothing extra if you go ahead. Without it, the 30 days would be spent finding out what to build.' },
+      { q: 'What happens if something breaks after handover?', a: 'Your team has the manuals and recordings to fix the common problems, and every system is set up in your accounts with the vendor\'s own support. If you want us back, further work is a separately scoped project with its own quote, not an open-ended support contract.' },
+      { q: 'Do we own what you build?', a: 'Yes. Everything is built in accounts in your name, and you keep your accounts, data and commissioned deliverables under the agreement. Third-party software stays under its own licence terms. Nothing we build lives in our accounts, so nothing leaves with us.' },
+    ],
+    related: ['ai-assessment', '90-day-ai-engagement', 'pricing'],
+    formHeading: 'Ask about the 30-day install.',
+  },
+  {
+    slug: '90-day-ai-engagement', kind: 'offer', offer: 'engagement', nav: '90-day engagement', published: D, updated: D,
+    title: '90-Day AI Engagement: Build, Train and Hand Over | We Keep You Spry',
+    description: 'The 90-day AI engagement, from $25,000: the 30-day install, then two months of scoped builds, tests, training and a full handover.',
+    eyebrow: 'THE 90-DAY ENGAGEMENT · FROM $25,000',
+    h1: 'The 90-day AI engagement',
+    answer: 'The We Keep You Spry 90-day engagement is the 30-day install followed by two more months of scoped builds, tests, training and practice, priced {engagement}. It suits a business with more than one team or company to bring along, and it ends with a full handover and a review of how your team runs each system alone.',
+    sections: [
+      { h2: 'What happens in each month?', p: ['Month one is the install; months two and three build on it and hand it over.'], table: { head: ['Month', 'Focus', 'What happens'], rows: [
+        ['Month 1', 'Foundation', 'The 30-day install: priorities agreed, accounts mapped, foundational tools and first systems in place'],
+        ['Month 2', 'Build', 'More scoped builds and workflow tests, shown to your team as they are finished'],
+        ['Month 3', 'Independence', 'Training, manuals, a security and ownership review, and handover'],
+      ] } },
+      { h2: 'Who is the 90-day engagement for?', p: ['Owners with more than one team, site or company to bring along, or with more workflows than one install can cover. If the Assessment shows one install is enough, it will say so and quote the [30-day install](/30-day-ai-implementation) instead.'] },
+      { h2: 'What sets the price?', p: ['The scope written in the Assessment: how many systems, teams and companies are in it. The engagement starts {engagement}, and the exact figure is fixed in your quote before work starts.'] },
+      { h2: 'What does handover mean at day 90?', p: ['Your team operates every system on its own while we watch, every account is confirmed in your name, and you get a written review of what was built, what it costs to run and what to consider next.'] },
+    ],
+    faq: [
+      { q: 'How much does the 90-day engagement cost?', a: 'The 90-day engagement starts {engagement}. The exact price depends on the scope set in the {assessment} Assessment, whose fee is credited to it. The figure is fixed in writing before work begins, and software is billed to your own accounts at its own price.' },
+      { q: 'What happens after the 90 days?', a: 'You own and run what was built. You can stop there, which is the point, or ask for a separately scoped expansion with its own quote. An optional learning membership may follow when it is available. There is no retainer that continues by default.' },
+      { q: 'Can we start with the 30-day install and extend later?', a: 'Yes. The 90-day engagement starts with the same install, so a business can begin with 30 days and ask for more once it sees the result. Work after that is quoted from the scope you add, in writing, before it starts.' },
+      { q: 'Do we own what you build in 90 days?', a: 'Yes. Everything is built in accounts in your name, and you keep control of your accounts, data and commissioned deliverables under the agreement. Third-party software stays under its own licence. The day-90 review confirms every account is yours before we close our access.' },
+    ],
+    related: ['30-day-ai-implementation', 'ai-assessment', 'ai-for-holding-companies'],
+    formHeading: 'Ask about the 90-day engagement.',
+  },
+];

@@ -1,0 +1,43 @@
+name: CI
+
+# Builds public/ and runs every check on each PR and on main. One step per test file, so a new
+# test without a step here guards nothing (and is easy to spot).
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build public/
+        run: npm run build
+      - name: Static pages and links
+        run: node scripts/test.mjs
+      - name: Page checks (name, prices, canonical, forms, frozen sections 02-04, sitemap)
+        run: node scripts/check-pages.mjs
+      - name: Form values pinned to inquiry.js and Code.gs
+        run: node scripts/form-values-test.mjs
+      - name: Clarity loader
+        run: node scripts/clarity-test.mjs
+      - name: Offer buttons pick the form option
+        run: node scripts/offer-select-test.mjs
+      - name: Inquiry endpoint
+        run: node scripts/inquiry-test.mjs
+      - name: Portal gateway
+        run: node scripts/portal-test.mjs
+      - name: Founder gateway
+        run: node scripts/founder-test.mjs
