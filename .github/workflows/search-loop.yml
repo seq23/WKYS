@@ -1,0 +1,49 @@
+name: Search Loop
+
+# The shared search growth engine (seq23/search-loop) on wekeepyouspry.com, her yes 28 Nov 2026
+# (plan item T6): find easy buyer searches, publish one gated question page per search under
+# /questions/ (questions/<slug>/index.html, copied into public/ by scripts/build.mjs), check each page
+# at 2/4/8 weeks. The finishing step rebuilds the site and runs the page checks, so a page that says
+# "SPRY" alone or a wrong price is never committed. A finished run on main fires the Deploy workflow
+# (workflow_run), which is what puts new pages live. SEARCH_LOOP_MODE on seq23/search-loop throttles it.
+on:
+  schedule:
+    - cron: "53 9 * * *"  # 09:53 UTC: its own minute (no other caller uses :53)
+  pull_request:
+    paths:
+      - search-loop.config.json
+      - .github/workflows/search-loop.yml
+  workflow_dispatch:
+    inputs:
+      stage:
+        description: "auto | find | build | check"
+        required: false
+        default: auto
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: ${{ github.event_name == 'pull_request' && format('search-loop-pr-{0}', github.ref) || 'search-loop' }}
+  cancel-in-progress: false
+
+jobs:
+  search-loop:
+    uses: seq23/search-loop/.github/workflows/search-loop.yml@ccddf601b85517f275b83f7a7160ffa6d32309bb  # v1.17.2
+    with:
+      engine_ref: v1
+      stage: ${{ github.event_name == 'pull_request' && 'validate' || inputs.stage || 'auto' }}
+      post_build_command: npm run build && node scripts/check-pages.mjs
+      open_loops_business: wkys
+    secrets:
+      BOSS_OPEN_LOOPS_TOKEN: ${{ secrets.BOSS_OPEN_LOOPS_TOKEN }}
+      OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+      GSC_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_JSON }}
+      GSC_SITE_URL: ${{ secrets.GSC_SITE_URL }}
+      BING_WEBMASTER_API_KEY: ${{ secrets.BING_WEBMASTER_API_KEY }}
+      BRAVE_SEARCH_API_KEY: ${{ secrets.BRAVE_SEARCH_API_KEY }}
+      GEMINI_API_KEY: ${{ secrets.SEARCH_LOOP_GEMINI_API_KEY }}  # no-billing AI Studio project only
+      CLOUDFLARE_WORKERS_AI_TOKEN: ${{ secrets.SEARCH_LOOP_CF_WORKERS_AI_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.SEARCH_LOOP_CF_ACCOUNT_ID }}

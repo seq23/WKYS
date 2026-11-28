@@ -1,5 +1,99 @@
+# We Keep You Spry. Search engines and AI assistants are welcome on every public page.
+# /portal and /thanks stay crawlable so their noindex is seen; the signed-in apps and the API are off limits.
 User-agent: *
 Allow: /
-Disallow: /portal.html
-Disallow: /thanks.html
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: Googlebot
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: ClaudeBot
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: Claude-User
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: Applebot
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: DuckDuckBot
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
+User-agent: CCBot
+Allow: /
+Disallow: /founder
+Disallow: /client
+Disallow: /api/
+
 Sitemap: https://wekeepyouspry.com/sitemap.xml

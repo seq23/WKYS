@@ -1,0 +1,100 @@
+name: Deploy
+
+# The one path a change takes to wekeepyouspry.com. The Pages project `wkys` is Direct Upload
+# (no Git connection), so a push alone deploys nothing: this workflow builds public/ and uploads it
+# with functions/ (wrangler runs from the repo root, where functions/ lives).
+# - A pull request from this repo gets a branch preview (https://<branch>.wkys-ejt.pages.dev),
+#   checked by scripts/check-live.mjs against production. Fork PRs get nothing: no secrets, no deploy.
+# - main deploys production only after the build and every test pass in the same job, then reads
+#   the live site back. Rollback: re-promote an earlier deployment in Cloudflare Pages
+#   (the last hand upload before this workflow was fa2c24b9).
+# - Bot commits pushed with GITHUB_TOKEN (the search loop) do not fire `push`, so a finished
+#   Search Loop run on main also triggers a production deploy.
+# Spends nothing: Pages direct upload is free.
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: [Search Loop]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: wkys-preview-${{ github.head_ref }}
+      cancel-in-progress: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and test
+        run: npm run build && npm test
+      - name: Branch preview upload
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          BRANCH: ${{ github.head_ref }}
+          SHA: ${{ github.event.pull_request.head.sha }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "NAMED STOP [SECRET_MISSING] CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID is not set"; exit 1
+          fi
+          # A preview is a public copy of the site: keep it out of search engines.
+          printf '\n/*\n  X-Robots-Tag: noindex\n' >> public/_headers
+          npx --yes wrangler@4.131.1 pages deploy public --project-name wkys --branch "$BRANCH" \
+            --commit-hash "$SHA" --commit-message "preview $BRANCH" --commit-dirty=true | tee "$RUNNER_TEMP/deploy.log"
+          url="$(grep -oE 'https://[a-z0-9.-]+\.wkys-ejt\.pages\.dev' "$RUNNER_TEMP/deploy.log" | tail -1)"
+          [ -n "$url" ] || { echo "NAMED STOP [NO_PREVIEW_URL] the upload printed no pages.dev address"; exit 1; }
+          echo "PREVIEW_URL=$url" >> "$GITHUB_ENV"
+          echo "OUTPUT preview: $url" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Read the preview back
+        run: node scripts/check-live.mjs "$PREVIEW_URL" --compare https://wekeepyouspry.com | tee -a "$GITHUB_STEP_SUMMARY"
+
+  production:
+    if: >-
+      github.ref == 'refs/heads/main' && (
+        github.event_name == 'push' || github.event_name == 'workflow_dispatch' ||
+        (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    concurrency:
+      group: wkys-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build and test (production deploys only on green)
+        run: npm run build && npm test
+      - name: Direct upload to production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "NAMED STOP [SECRET_MISSING] CLOUDFLARE_API_TOKEN or CLOUDFLARE_ACCOUNT_ID is not set"; exit 1
+          fi
+          # Only committed files are published: public/ is rebuilt above from the checkout alone.
+          if [ -n "$(git status --porcelain --untracked-files=all -- . ':!public')" ]; then
+            echo "NAMED STOP [DIRTY_TREE] uncommitted files would be published"; git status --porcelain; exit 1
+          fi
+          npx --yes wrangler@4.131.1 pages deploy public --project-name wkys --branch main \
+            --commit-hash "$(git rev-parse HEAD)" --commit-message "deploy $(git rev-parse --short HEAD)" \
+            --commit-dirty=true | tee "$RUNNER_TEMP/deploy.log"
+          grep -q "Deployment complete" "$RUNNER_TEMP/deploy.log"
+          echo "OUTPUT deployed $(git rev-parse --short HEAD) to wkys production" | tee -a "$GITHUB_STEP_SUMMARY"
+      - name: Read production back
+        run: sleep 20 && node scripts/check-live.mjs https://wekeepyouspry.com | tee -a "$GITHUB_STEP_SUMMARY"

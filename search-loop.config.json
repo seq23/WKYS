@@ -1,0 +1,198 @@
+{
+  "schema": "search-loop-config-v1",
+  "site": "wekeepyouspry.com",
+  "base_url": "https://wekeepyouspry.com",
+  "site_name": "We Keep You Spry",
+  "publisher": {
+    "name": "We Keep You Spry",
+    "url": "https://wekeepyouspry.com",
+    "logo": "https://wekeepyouspry.com/assets/mark.svg"
+  },
+  "audience": "owners and operators in the United States who want AI working in their business without hiring for it: holding companies, search funds and independent sponsors and the companies they buy, home-service roll-ups, independent insurance agencies, licensed bail bond agencies and property management firms; busy, practical, reading on a phone between other work",
+  "voice": "calm, plain and editorial; short sentences; second person; answer first. Never call the business SPRY on its own: it is We Keep You Spry, or WKYS. Never promise sales, revenue, growth, savings figures or results; never say guaranteed, compliant or best; never imply past clients, case studies, logos or results (there are none to cite). Never ask the reader for a call or a meeting: the one next step is the Assessment through the site's form. Where a law or rule applies (Fair Housing, TCPA texting consent, state bail or insurance licensing, GLBA), state it as a sourced fact and say the reader's own counsel checks it; never give legal advice. Name other firms or products only with a source and fairly. Prices, when used, are exactly: Assessment $1,500 (credited to the install), 30-day install $10,000, 90-day engagement from $25,000. No robot imagery or exaggerated technology claims.",
+  "topics": [
+    "ai implementation consultant",
+    "ai implementation for small business",
+    "how to implement ai in a small business",
+    "ai for holding companies",
+    "ai for search funds",
+    "ai for property management companies",
+    "ai for insurance agencies",
+    "ai for bail bonds",
+    "ai for hvac companies",
+    "ai consultant cost",
+    "ai readiness assessment",
+    "ai adoption for employees",
+    "ai automation agency",
+    "ai policy for small business",
+    "ai for back office",
+    "ai for month end close"
+  ],
+  "find": {
+    "priority_topics": 6,
+    "exclude_words": [
+      "salary",
+      "jobs",
+      "job",
+      "certification",
+      "course",
+      "courses",
+      "how to start",
+      "become",
+      "training program",
+      "degree",
+      "internship",
+      "free template",
+      "reddit",
+      "india",
+      "uk",
+      "canada",
+      "australia",
+      "west peek"
+    ]
+  },
+  "action": {
+    "label": "Start with the Assessment",
+    "url": "https://wekeepyouspry.com/ai-assessment#inquire"
+  },
+  "allowed_link_targets": [
+    "https://wekeepyouspry.com"
+  ],
+  "mode": "normal",
+  "menu_pages_need_approval": false,
+  "health_gate": "none",
+  "protected_paths": [
+    "index.html",
+    "discover.html",
+    "privacy.html",
+    "portal.html",
+    "thanks.html",
+    "404.html",
+    "client.html",
+    "founder.html",
+    "site",
+    "scripts",
+    "functions",
+    "assets",
+    "google-apps-script",
+    "supabase",
+    "_headers",
+    "_redirects",
+    "_routes.json",
+    "robots.txt",
+    "BingSiteAuth.xml",
+    "663fc2b636bdef7e16dc67ec7208c68f.txt",
+    ".github"
+  ],
+  "output": {
+    "dir": "questions",
+    "format": "dir-index",
+    "url_prefix": "/questions/",
+    "redirects": {
+      "file": "_redirects",
+      "format": "lines"
+    }
+  },
+  "template": {
+    "section_name": "Questions",
+    "stylesheets": [
+      "/assets/style.css"
+    ],
+    "og_image": {
+      "url": "https://wekeepyouspry.com/assets/og.png",
+      "width": 1200,
+      "height": 630
+    },
+    "header_html": "<header class=\"nav\"><a class=\"logo\" href=\"/\" aria-label=\"We Keep You Spry home\"><span class=\"wky\">we keep you</span>spry<span>.</span></a><a href=\"/ai-assessment#inquire\">Start with the Assessment ↗</a></header>",
+    "footer_html": "<footer><div class=\"foot-top\"><a class=\"logo\" href=\"/\"><span class=\"wky\">we keep you</span>spry<span>.</span></a><p>We Keep You Spry installs AI across a business in 30 days, trains the team and hands it over. Assessment $1,500, credited to the install; 30-day install $10,000; 90-day engagement from $25,000.</p></div><div class=\"foot-base\"><a href=\"/pricing\">Pricing</a><a href=\"/privacy\">Privacy</a><span>© 2026 We Keep You Spry</span></div></footer>"
+  },
+  "related": {
+    "max_pages_per_new_page": 2,
+    "scan_dirs": [
+      "questions"
+    ],
+    "skip_dirs": []
+  },
+  "gsc": {
+    "site_url_env": "GSC_SITE_URL"
+  },
+  "indexnow": {
+    "key": "663fc2b636bdef7e16dc67ec7208c68f",
+    "key_location": "https://wekeepyouspry.com/663fc2b636bdef7e16dc67ec7208c68f.txt"
+  },
+  "conversions": {
+    "source": "none"
+  },
+  "shares_audience_with": [],
+  "ledger_dir": "data/search-loop",
+  "gate": {
+    "own_prices": [
+      "Assessment $1,500",
+      "30-day install $10,000",
+      "90-day engagement from $25,000",
+      "$1,500",
+      "$10,000",
+      "from $25,000"
+    ],
+    "banned_patterns": [
+      "\\bguaranteed?\\b",
+      "\\bcompliant\\b",
+      "\\bwe(?:'ve| have) helped\\b",
+      "\\bcase stud(?:y|ies)\\b",
+      "\\b(?:book|schedule) a call\\b",
+      "\\bour clients\\b"
+    ],
+    "why": "28 Nov 2026 brief (wkys-search): no implied track record (no clients yet), no compliance or results promises, no call asks; the Assessment through the form is the one next step."
+  },
+  "seeds_from": "Starter searches chosen 28 Nov 2026 for the buyer questions the landing pages do not already answer; the nightly chatgpt-searches job adds ChatGPT's own searches here by PR",
+  "seeds": [
+    {
+      "query": "how to get employees to actually use ai tools at work",
+      "wants": [
+        "training",
+        "manuals",
+        "adoption"
+      ]
+    },
+    {
+      "query": "who owns the ai automations a consultant builds for my business",
+      "wants": [
+        "ownership",
+        "accounts in your name",
+        "handover"
+      ]
+    },
+    {
+      "query": "ai readiness checklist for a small business owner",
+      "wants": [
+        "checklist",
+        "tools",
+        "data"
+      ]
+    }
+  ],
+  "product": {
+    "checked_at": "2026-11-28 from site/data.mjs and the home page",
+    "facts": [
+      "We Keep You Spry (WKYS) installs AI tools across a business, trains the team to run them and hands every system over to the owner.",
+      "The Assessment costs $1,500: a review of the business's workflows, tools, accounts and data that ends in a written roadmap and a fixed quote; its fee is credited to the install if the owner goes ahead.",
+      "The 30-day install costs $10,000: the agreed systems are set up in accounts the business owns, tested, documented and handed over with training within 30 days.",
+      "The 90-day engagement costs from $25,000: the 30-day install followed by two more months of scoped builds, tests, training and a full handover; the exact price is fixed in writing after the Assessment.",
+      "Everything is built in accounts in the client's name; the client keeps its accounts, data and commissioned deliverables under the agreement.",
+      "Software the client chooses is billed to the client's own accounts at the vendor's price.",
+      "There is no retainer after handover; further work is a separately scoped project with its own quote.",
+      "The way to start is the inquiry form on wekeepyouspry.com, choosing the Assessment."
+    ],
+    "lacks": [
+      "We Keep You Spry does not run a client's business, sales pipeline or marketing, and does not promise sales, growth or revenue.",
+      "We Keep You Spry does not sell its own software product or app.",
+      "We Keep You Spry does not give legal advice; where rules apply, steps are written out for the client's own counsel to review.",
+      "We Keep You Spry does not publish client names, case studies or results.",
+      "We Keep You Spry does not offer calls as a first step; the first step is the Assessment through the form."
+    ]
+  },
+  "cap": {
+    "max_live_pages": 15,
+    "max_per_day": 3
+  }
+}
